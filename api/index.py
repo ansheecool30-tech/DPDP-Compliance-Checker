@@ -40,7 +40,7 @@ Return ONLY a valid JSON array with no markdown, no code fences, no explanation.
 Include 20-24 items total. Tailor items specifically to the business type and state. For {req.state}, include relevant state government IT policies, sector regulators, or data sharing obligations. Mark Significant Data Fiduciary obligations only if scale and business type warrants it. Return pure JSON array only — no other text."""
 
     try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         response = model.generate_content(prompt)
         raw = response.text.strip()
         raw = re.sub(r"```json|```", "", raw).strip()
