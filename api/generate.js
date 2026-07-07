@@ -43,7 +43,7 @@ Include 20-24 items total. Tailor the checklist specifically to the business typ
           'X-Title': 'DPDP Compliance Checker'
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3.3-70b-instruct:free',
+          model: 'google/gemma-4-26b-a4b-it:free',
           messages: [
             {
               role: 'user',
@@ -58,6 +58,12 @@ Include 20-24 items total. Tailor the checklist specifically to the business typ
 
     console.log('STATUS:', response.status);
     console.log('RAW RESPONSE:', rawResponse);
+
+    if (response.status === 429) {
+    return res.status(429).json({
+    error: 'The free AI model is currently busy. Please wait 30 seconds and try again.'
+  });
+}
 
     if (!response.ok) {
       return res.status(500).json({
