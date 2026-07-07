@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import google.generativeai as genai
+import anthropic
 import os
 import json
 import re
@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 class ChecklistRequest(BaseModel):
     business_type: str
@@ -37,12 +37,15 @@ Return ONLY a valid JSON array with no markdown, no code fences, no explanation.
 - "desc": 1-2 sentence practical explanation referencing specific DPDP Act sections or rules where relevant
 - "priority": exactly one of "critical", "high", or "medium"
 
-Include 20-24 items total. Tailor items specifically to the business type and state. For {req.state}, include relevant state government IT policies, sector regulators, or data sharing obligations. Mark Significant Data Fiduciary obligations only if scale and business type warrants it. Return pure JSON array only — no other text."""
+Include 20-24 items total. Tailor items specifically to the business type and state. Return pure JSON array only — no other text."""
 
     try:
-        model = genai.GenerativeModel("gemini-2.0-flash")
-        response = model.generate_content(prompt)
-        raw = response.text.strip()
+        message = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=2000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        raw = message.content[0].text.strip()
         raw = re.sub(r"```json|```", "", raw).strip()
         items = json.loads(raw)
         return {"items": items}
