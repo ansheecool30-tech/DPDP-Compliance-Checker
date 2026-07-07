@@ -42,7 +42,12 @@ Include 20-24 items total. Tailor items specifically to the business type and st
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(500).json({ error: data.error?.message || 'OpenRouter API error' });
+      console.log("OPENROUTER ERROR:");
+      console.log(JSON.stringify(data, null, 2));
+
+      return res.status(500).json({
+        error: JSON.stringify(data)
+      });
     }
 
     let raw = data.choices[0].message.content.trim().replace(/```json|```/g, '').trim();
