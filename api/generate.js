@@ -24,6 +24,11 @@ Return ONLY a valid JSON array with no markdown, no code fences, no explanation.
 
 Include 20-24 items total. Tailor items specifically to the business type and state. For ${state}, include relevant state government IT policies, sector regulators, or data sharing obligations. Mark Significant Data Fiduciary obligations only if scale and business type warrants it. Return pure JSON array only — no other text.`;
 
+console.log(
+  "KEY PREFIX:",
+  process.enc.OPENROUTER_API_KEY?.substring(0, 15)
+);
+
   try {
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
