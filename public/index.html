@@ -13,7 +13,7 @@
     --ink: #1a1a1a; --ink-soft: #5a5a5a; --ink-muted: #9a9a9a;
     --surface: #ffffff; --surface-2: #f7f6f3; --surface-3: #f0ede8;
     --border: #e2ded8; --border-strong: #c8c4be;
-    --accent: #1a3a2a; --accent-light: #eaf2ed;
+    --accent: #1a3a2a;
     --danger-bg: #fef2f2; --danger-text: #991b1b;
     --warn-bg: #fffbeb; --warn-text: #92400e;
     --info-bg: #eff6ff; --info-text: #1e40af;
@@ -86,14 +86,6 @@
   </div>
   <div class="form-card">
     <h2>Your business details</h2>
-    <div style="margin-bottom:1.25rem;">
-      <label style="display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-bottom:6px;" for="apiKeyInput">Claude API key</label>
-      <input id="apiKeyInput" type="password" placeholder="sk-ant-..." autocomplete="off"
-        style="width:100%;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;outline:none;"
-        oninput="localStorage.setItem('ckey', this.value)"
-      />
-      <div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">Your key is stored only in your browser. Get one at console.anthropic.com</div>
-    </div>
     <div class="form-grid">
       <div class="field">
         <label for="bizType">Business type</label>
@@ -116,44 +108,44 @@
         <select id="stateSelect">
           <option value="">Select...</option>
           <optgroup label="States">
-          <option>Andhra Pradesh</option>
-          <option>Arunachal Pradesh</option>
-          <option>Assam</option>
-          <option>Bihar</option>
-          <option>Chhattisgarh</option>
-          <option>Goa</option>
-          <option>Gujarat</option>
-          <option>Haryana</option>
-          <option>Himachal Pradesh</option>
-          <option>Jharkhand</option>
-          <option>Karnataka</option>
-          <option>Kerala</option>
-          <option>Madhya Pradesh</option>
-          <option>Maharashtra</option>
-          <option>Manipur</option>
-          <option>Meghalaya</option>
-          <option>Mizoram</option>
-          <option>Nagaland</option>
-          <option>Odisha</option>
-          <option>Punjab</option>
-          <option>Rajasthan</option>
-          <option>Sikkim</option>
-          <option>Tamil Nadu</option>
-          <option>Telangana</option>
-          <option>Tripura</option>
-          <option>Uttar Pradesh</option>
-          <option>Uttarakhand</option>
-          <option>West Bengal</option>
+            <option>Andhra Pradesh</option>
+            <option>Arunachal Pradesh</option>
+            <option>Assam</option>
+            <option>Bihar</option>
+            <option>Chhattisgarh</option>
+            <option>Goa</option>
+            <option>Gujarat</option>
+            <option>Haryana</option>
+            <option>Himachal Pradesh</option>
+            <option>Jharkhand</option>
+            <option>Karnataka</option>
+            <option>Kerala</option>
+            <option>Madhya Pradesh</option>
+            <option>Maharashtra</option>
+            <option>Manipur</option>
+            <option>Meghalaya</option>
+            <option>Mizoram</option>
+            <option>Nagaland</option>
+            <option>Odisha</option>
+            <option>Punjab</option>
+            <option>Rajasthan</option>
+            <option>Sikkim</option>
+            <option>Tamil Nadu</option>
+            <option>Telangana</option>
+            <option>Tripura</option>
+            <option>Uttar Pradesh</option>
+            <option>Uttarakhand</option>
+            <option>West Bengal</option>
           </optgroup>
           <optgroup label="Union Territories">
-          <option>Andaman & Nicobar Islands</option>
-          <option>Chandigarh</option>
-          <option>Dadra & Nagar Haveli and Daman & Diu</option>
-          <option>Delhi (NCT)</option>
-          <option>Jammu & Kashmir</option>
-          <option>Ladakh</option>
-          <option>Lakshadweep</option>
-          <option>Puducherry</option>
+            <option>Andaman & Nicobar Islands</option>
+            <option>Chandigarh</option>
+            <option>Dadra & Nagar Haveli and Daman & Diu</option>
+            <option>Delhi (NCT)</option>
+            <option>Jammu & Kashmir</option>
+            <option>Ladakh</option>
+            <option>Lakshadweep</option>
+            <option>Puducherry</option>
           </optgroup>
         </select>
       </div>
@@ -177,26 +169,19 @@
   <p style="margin-top:6px;">Built on DPDP Act, 2023 &amp; Draft Digital Personal Data Protection Rules, 2025.</p>
 </footer>
 <script>
-// Load saved key on page load
-window.addEventListener('load', () => {
-  const saved = localStorage.getItem('ckey');
-  if (saved) document.getElementById('apiKeyInput').value = saved;
-});
 const checks = [];
 
 function badge(p) {
-  const m = {critical:'badge-critical',high:'badge-high',medium:'badge-medium'};
-  return `<span class="badge ${m[p]||'badge-medium'}">${p}</span>`;
+  const m = { critical: 'badge-critical', high: 'badge-high', medium: 'badge-medium' };
+  return `<span class="badge ${m[p] || 'badge-medium'}">${p}</span>`;
 }
 
 function toggleCheck(i, total) {
   checks[i] = !checks[i];
-  const cb = document.getElementById('cb-'+i);
-  const item = document.getElementById('item-'+i);
-  cb.classList.toggle('checked', checks[i]);
-  item.classList.toggle('done', checks[i]);
+  document.getElementById('cb-' + i).classList.toggle('checked', checks[i]);
+  document.getElementById('item-' + i).classList.toggle('done', checks[i]);
   const done = checks.filter(Boolean).length;
-  document.getElementById('prog-bar').style.width = (done/total*100)+'%';
+  document.getElementById('prog-bar').style.width = (done / total * 100) + '%';
   document.getElementById('prog-label').textContent = `${done} of ${total} items completed`;
 }
 
@@ -206,7 +191,7 @@ function renderChecklist(items, biz, st, emp) {
   const sections = {};
   items.forEach((item, i) => {
     if (!sections[item.section]) sections[item.section] = [];
-    sections[item.section].push({...item, idx: i});
+    sections[item.section].push({ ...item, idx: i });
   });
   let html = `<div class="results-header">
     <div>
@@ -238,14 +223,9 @@ function renderChecklist(items, biz, st, emp) {
 }
 
 async function generate() {
-  const APIKEY = document.getElementById('apiKeyInput').value.trim();
   const biz = document.getElementById('bizType').value;
   const st = document.getElementById('stateSelect').value;
   const emp = document.getElementById('empCount').value;
-  if (!APIKEY) {
-    document.getElementById('output').innerHTML = '<div class="error-box">Please enter your Claude API key at the top.</div>';
-    return;
-  }
   if (!biz || !st || !emp) {
     document.getElementById('output').innerHTML = '<div class="error-box">Please fill in all three fields before generating.</div>';
     return;
@@ -254,43 +234,17 @@ async function generate() {
   btn.disabled = true;
   document.getElementById('output').innerHTML = `<div class="loading"><span class="dot-anim">Generating your checklist</span><br><span style="color:var(--ink-muted);font-size:13px;margin-top:8px;display:block">Analysing DPDP Act requirements for ${biz} in ${st}</span></div>`;
 
-  const prompt = `You are a senior Indian data privacy lawyer specialising in the Digital Personal Data Protection Act, 2023 (DPDP Act) and its Draft Rules 2025.
-
-Generate a compliance checklist for:
-- Business type: ${biz}
-- State: ${st}
-- Employee count: ${emp}
-
-Return ONLY a valid JSON array with no markdown, no code fences, no explanation. Each item must have exactly these fields:
-- "section": one of ["Data Principal Rights", "Consent Management", "Data Fiduciary Obligations", "Data Localisation & Cross-Border Transfers", "Security Safeguards", "Grievance Redressal", "State-Specific Requirements", "Significant Data Fiduciary Obligations"]
-- "title": short action item (max 12 words)
-- "desc": 1-2 sentence practical explanation referencing specific DPDP Act sections or rules where relevant
-- "priority": exactly one of "critical", "high", or "medium"
-
-Include 20-24 items total. Tailor items specifically to the business type and state. Return pure JSON array only.`;
-
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": APIKEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 2000,
-        messages: [{ role: "user", content: prompt }]
-      })
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ business_type: biz, state: st, employee_count: emp })
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error?.message || 'API error');
-    let raw = data.content[0].text.trim().replace(/```json|```/g, '').trim();
-    const items = JSON.parse(raw);
-    document.getElementById('output').innerHTML = renderChecklist(items, biz, st, emp);
+    if (!res.ok) throw new Error(data.error || 'Server error');
+    document.getElementById('output').innerHTML = renderChecklist(data.items, biz, st, emp);
     document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch(e) {
+  } catch (e) {
     document.getElementById('output').innerHTML = `<div class="error-box">Something went wrong: ${e.message}. Please try again.</div>`;
   }
   btn.disabled = false;
