@@ -9,333 +9,91 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --ink: #1a1a1a;
-    --ink-soft: #5a5a5a;
-    --ink-muted: #9a9a9a;
-    --surface: #ffffff;
-    --surface-2: #f7f6f3;
-    --surface-3: #f0ede8;
-    --border: #e2ded8;
-    --border-strong: #c8c4be;
-    --accent: #1a3a2a;
-    --accent-light: #eaf2ed;
-    --accent-text: #1a3a2a;
-    --danger-bg: #fef2f2;
-    --danger-text: #991b1b;
-    --warn-bg: #fffbeb;
-    --warn-text: #92400e;
-    --info-bg: #eff6ff;
-    --info-text: #1e40af;
+    --ink: #1a1a1a; --ink-soft: #5a5a5a; --ink-muted: #9a9a9a;
+    --surface: #ffffff; --surface-2: #f7f6f3; --surface-3: #f0ede8;
+    --border: #e2ded8; --border-strong: #c8c4be;
+    --accent: #1a3a2a; --accent-light: #eaf2ed;
+    --danger-bg: #fef2f2; --danger-text: #991b1b;
+    --warn-bg: #fffbeb; --warn-text: #92400e;
+    --info-bg: #eff6ff; --info-text: #1e40af;
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--surface-2);
-    color: var(--ink);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-
-  /* ── Header ── */
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-  }
-  .header-inner {
-    max-width: 860px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-  }
-  .wordmark {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    color: var(--accent);
-    letter-spacing: -0.02em;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--surface-2); color: var(--ink); min-height: 100vh; line-height: 1.6; }
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; }
+  .header-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .wordmark { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--accent); letter-spacing: -0.02em; }
   .wordmark span { color: var(--ink-muted); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; margin-left: 8px; }
-  .act-pill {
-    font-size: 11px;
-    padding: 3px 10px;
-    border: 1px solid var(--border-strong);
-    border-radius: 99px;
-    color: var(--ink-soft);
-  }
-
-  /* ── Main layout ── */
-  main {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 3rem 2rem 6rem;
-  }
-
-  /* ── Hero ── */
+  .act-pill { font-size: 11px; padding: 3px 10px; border: 1px solid var(--border-strong); border-radius: 99px; color: var(--ink-soft); }
+  main { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 6rem; }
   .hero { margin-bottom: 2.5rem; }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(28px, 4vw, 40px);
-    line-height: 1.15;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-    margin-bottom: 0.75rem;
-  }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
   .hero h1 em { color: var(--accent); font-style: normal; }
-  .hero p {
-    font-size: 16px;
-    color: var(--ink-soft);
-    max-width: 540px;
-    line-height: 1.65;
-  }
-
-  /* ── Form card ── */
-  .form-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
-  .form-card h2 {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1.25rem;
-  }
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .field label {
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-soft);
-    margin-bottom: 6px;
-  }
-  .field select {
-    width: 100%;
-    padding: 9px 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--ink);
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 8px;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%239a9a9a' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    cursor: pointer;
-    transition: border-color 0.15s;
-  }
+  .hero p { font-size: 16px; color: var(--ink-soft); max-width: 540px; line-height: 1.65; }
+  .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+  .form-card h2 { font-size: 13px; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .field label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-soft); margin-bottom: 6px; }
+  .field select { width: 100%; padding: 9px 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); background: var(--surface); border: 1px solid var(--border-strong); border-radius: 8px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%239a9a9a' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
   .field select:focus { outline: none; border-color: var(--accent); }
-
-  .generate-btn {
-    width: 100%;
-    padding: 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: #fff;
-    background: var(--accent);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
-  }
+  .generate-btn { width: 100%; padding: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: #fff; background: var(--accent); border: none; border-radius: 8px; cursor: pointer; transition: opacity 0.15s; }
   .generate-btn:hover { opacity: 0.88; }
-  .generate-btn:active { transform: scale(0.99); }
   .generate-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
-  /* ── Loading ── */
-  .loading {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--ink-soft);
-    font-size: 14px;
-  }
-  .dot-anim::after {
-    content: '';
-    animation: dots 1.5s steps(4, end) infinite;
-  }
-  @keyframes dots {
-    0%   { content: ''; }
-    25%  { content: '.'; }
-    50%  { content: '..'; }
-    75%  { content: '...'; }
-  }
-
-  /* ── Error ── */
-  .error-box {
-    padding: 1rem 1.25rem;
-    background: var(--danger-bg);
-    color: var(--danger-text);
-    border-radius: 8px;
-    font-size: 14px;
-    border: 1px solid #fecaca;
-  }
-
-  /* ── Results ── */
-  .results-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
+  .loading { text-align: center; padding: 3rem 1rem; color: var(--ink-soft); font-size: 14px; }
+  .dot-anim::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
+  @keyframes dots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} }
+  .error-box { padding: 1rem 1.25rem; background: var(--danger-bg); color: var(--danger-text); border-radius: 8px; font-size: 14px; border: 1px solid #fecaca; }
+  .results-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
   .results-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); }
   .meta-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-  .chip {
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    color: var(--ink-soft);
-    background: var(--surface);
-  }
-
-  /* Progress */
+  .chip { font-size: 12px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 99px; color: var(--ink-soft); background: var(--surface); }
   .progress-wrap { margin-bottom: 1.5rem; }
-  .progress-track {
-    height: 4px;
-    background: var(--surface-3);
-    border-radius: 99px;
-    overflow: hidden;
-    margin-bottom: 6px;
-  }
-  .progress-bar {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 99px;
-    transition: width 0.3s ease;
-    width: 0%;
-  }
+  .progress-track { height: 4px; background: var(--surface-3); border-radius: 99px; overflow: hidden; margin-bottom: 6px; }
+  .progress-bar { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.3s ease; width: 0%; }
   .progress-label { font-size: 13px; color: var(--ink-muted); }
-
-  /* Section grouping */
-  .section-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: var(--ink-muted);
-    margin: 2rem 0 0.75rem;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  /* Check item */
-  .check-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
-  }
+  .section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-muted); margin: 2rem 0 0.75rem; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
   .check-item:last-child { border-bottom: none; }
-  .check-item.done .check-title { color: var(--ink-muted); text-decoration: line-through; text-decoration-color: var(--border-strong); }
-
-  .cb {
-    width: 20px; height: 20px; min-width: 20px;
-    border: 1.5px solid var(--border-strong);
-    border-radius: 5px;
-    margin-top: 1px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.12s, border-color 0.12s;
-  }
+  .check-item.done .check-title { color: var(--ink-muted); text-decoration: line-through; }
+  .cb { width: 20px; height: 20px; min-width: 20px; border: 1.5px solid var(--border-strong); border-radius: 5px; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.12s, border-color 0.12s; }
   .cb:hover { border-color: var(--accent); }
   .cb.checked { background: var(--accent); border-color: var(--accent); }
-  .cb.checked::after {
-    content: '';
-    display: block;
-    width: 5px; height: 9px;
-    border: 2px solid #fff;
-    border-top: none; border-left: none;
-    transform: rotate(45deg) translateY(-1px);
-  }
-
+  .cb.checked::after { content: ''; display: block; width: 5px; height: 9px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
   .check-content { flex: 1; min-width: 0; }
   .check-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
   .check-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
-
-  /* Priority badges */
-  .badge {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 99px;
-    white-space: nowrap;
-  }
+  .badge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
   .badge-critical { background: var(--danger-bg); color: var(--danger-text); }
-  .badge-high     { background: var(--warn-bg);   color: var(--warn-text);   }
-  .badge-medium   { background: var(--info-bg);   color: var(--info-text);   }
-
-  /* ── Print ── */
-  .print-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--ink-soft);
-    background: none;
-    border: 1px solid var(--border-strong);
-    border-radius: 8px;
-    padding: 7px 14px;
-    cursor: pointer;
-    transition: background 0.12s;
-  }
+  .badge-high { background: var(--warn-bg); color: var(--warn-text); }
+  .badge-medium { background: var(--info-bg); color: var(--info-text); }
+  .print-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--ink-soft); background: none; border: 1px solid var(--border-strong); border-radius: 8px; padding: 7px 14px; cursor: pointer; }
   .print-btn:hover { background: var(--surface-3); }
-
-  /* ── Footer ── */
-  footer {
-    text-align: center;
-    font-size: 12px;
-    color: var(--ink-muted);
-    padding: 2rem;
-    border-top: 1px solid var(--border);
-    margin-top: 4rem;
-  }
-
-  @media (max-width: 560px) {
-    main { padding: 2rem 1.25rem 4rem; }
-    .form-card { padding: 1.25rem; }
-    .results-header { flex-direction: column; }
-  }
-
-  @media print {
-    header, .form-card, .print-btn, footer { display: none; }
-    body { background: white; }
-    .check-item { page-break-inside: avoid; }
-  }
+  footer { text-align: center; font-size: 12px; color: var(--ink-muted); padding: 2rem; border-top: 1px solid var(--border); margin-top: 4rem; }
+  @media (max-width: 560px) { main { padding: 2rem 1.25rem 4rem; } .form-card { padding: 1.25rem; } }
+  @media print { header, .form-card, .print-btn, footer { display: none; } body { background: white; } }
 </style>
 </head>
 <body>
-
 <header>
   <div class="header-inner">
     <div class="wordmark">ComplianceMap <span>India</span></div>
     <span class="act-pill">DPDP Act 2023</span>
   </div>
 </header>
-
 <main>
   <div class="hero">
     <h1>Know exactly what your<br><em>data compliance</em> requires.</h1>
     <p>Generate a tailored checklist under India's Digital Personal Data Protection Act, 2023 — specific to your business type, state, and scale.</p>
   </div>
-
   <div class="form-card">
     <h2>Your business details</h2>
+    <div style="margin-bottom:1.25rem;">
+      <label style="display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-bottom:6px;" for="apiKeyInput">Claude API key</label>
+      <input id="apiKeyInput" type="password" placeholder="sk-ant-..." autocomplete="off"
+        style="width:100%;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;outline:none;"
+        oninput="localStorage.setItem('ckey', this.value)"
+      />
+      <div style="font-size:12px;color:var(--ink-muted);margin-top:4px;">Your key is stored only in your browser. Get one at console.anthropic.com</div>
+    </div>
     <div class="form-grid">
       <div class="field">
         <label for="bizType">Business type</label>
@@ -357,146 +115,184 @@
         <label for="stateSelect">State of operation</label>
         <select id="stateSelect">
           <option value="">Select...</option>
-          <option>Maharashtra</option>
+          <optgroup label="States">
+          <option>Andhra Pradesh</option>
+          <option>Arunachal Pradesh</option>
+          <option>Assam</option>
+          <option>Bihar</option>
+          <option>Chhattisgarh</option>
+          <option>Goa</option>
+          <option>Gujarat</option>
+          <option>Haryana</option>
+          <option>Himachal Pradesh</option>
+          <option>Jharkhand</option>
           <option>Karnataka</option>
-          <option>Delhi (NCT)</option>
+          <option>Kerala</option>
+          <option>Madhya Pradesh</option>
+          <option>Maharashtra</option>
+          <option>Manipur</option>
+          <option>Meghalaya</option>
+          <option>Mizoram</option>
+          <option>Nagaland</option>
+          <option>Odisha</option>
+          <option>Punjab</option>
+          <option>Rajasthan</option>
+          <option>Sikkim</option>
           <option>Tamil Nadu</option>
           <option>Telangana</option>
-          <option>Gujarat</option>
-          <option>West Bengal</option>
+          <option>Tripura</option>
           <option>Uttar Pradesh</option>
-          <option>Rajasthan</option>
-          <option>Punjab</option>
-          <option>Haryana</option>
-          <option>Kerala</option>
-          <option>Andhra Pradesh</option>
+          <option>Uttarakhand</option>
+          <option>West Bengal</option>
+          </optgroup>
+          <optgroup label="Union Territories">
+          <option>Andaman & Nicobar Islands</option>
+          <option>Chandigarh</option>
+          <option>Dadra & Nagar Haveli and Daman & Diu</option>
+          <option>Delhi (NCT)</option>
+          <option>Jammu & Kashmir</option>
+          <option>Ladakh</option>
+          <option>Lakshadweep</option>
+          <option>Puducherry</option>
+          </optgroup>
         </select>
       </div>
       <div class="field">
         <label for="empCount">Employee count</label>
         <select id="empCount">
           <option value="">Select...</option>
-          <option>1–10 (Micro)</option>
-          <option>11–50 (Small)</option>
-          <option>51–250 (Medium)</option>
-          <option>251–1000</option>
-          <option>1000+ (Large enterprise)</option>
+          <option>1–10 (Micro enterprise)</option>
+          <option>11–50 (Small enterprise)</option>
+          <option>51–250 (Medium enterprise)</option>
+          <option>251–1000+ (Large enterprise)</option>
         </select>
       </div>
     </div>
     <button class="generate-btn" id="generateBtn" onclick="generate()">Generate my compliance checklist</button>
   </div>
-
   <div id="output"></div>
 </main>
-
 <footer>
   <p>For informational purposes only. Not a substitute for legal advice. Always consult a qualified lawyer for compliance decisions.</p>
   <p style="margin-top:6px;">Built on DPDP Act, 2023 &amp; Draft Digital Personal Data Protection Rules, 2025.</p>
 </footer>
-
 <script>
-const state = { checks: [], total: 0 };
+// Load saved key on page load
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('ckey');
+  if (saved) document.getElementById('apiKeyInput').value = saved;
+});
+const checks = [];
 
-function badge(priority) {
-  const map = { critical: 'badge-critical', high: 'badge-high', medium: 'badge-medium' };
-  return `<span class="badge ${map[priority] || 'badge-medium'}">${priority}</span>`;
+function badge(p) {
+  const m = {critical:'badge-critical',high:'badge-high',medium:'badge-medium'};
+  return `<span class="badge ${m[p]||'badge-medium'}">${p}</span>`;
 }
 
-function toggleCheck(i) {
-  state.checks[i] = !state.checks[i];
-  const cb = document.getElementById('cb-' + i);
-  const item = document.getElementById('item-' + i);
-  if (state.checks[i]) {
-    cb.classList.add('checked');
-    item.classList.add('done');
-  } else {
-    cb.classList.remove('checked');
-    item.classList.remove('done');
-  }
-  const done = state.checks.filter(Boolean).length;
-  document.getElementById('prog-bar').style.width = (done / state.total * 100) + '%';
-  document.getElementById('prog-label').textContent = `${done} of ${state.total} items completed`;
+function toggleCheck(i, total) {
+  checks[i] = !checks[i];
+  const cb = document.getElementById('cb-'+i);
+  const item = document.getElementById('item-'+i);
+  cb.classList.toggle('checked', checks[i]);
+  item.classList.toggle('done', checks[i]);
+  const done = checks.filter(Boolean).length;
+  document.getElementById('prog-bar').style.width = (done/total*100)+'%';
+  document.getElementById('prog-label').textContent = `${done} of ${total} items completed`;
 }
 
 function renderChecklist(items, biz, st, emp) {
-  state.checks = new Array(items.length).fill(false);
-  state.total = items.length;
-
+  checks.length = 0;
+  items.forEach(() => checks.push(false));
   const sections = {};
   items.forEach((item, i) => {
     if (!sections[item.section]) sections[item.section] = [];
-    sections[item.section].push({ ...item, idx: i });
+    sections[item.section].push({...item, idx: i});
   });
-
-  let html = `
-    <div class="results-header">
-      <div>
-        <div class="results-title">Your compliance checklist</div>
-        <div class="meta-chips">
-          <span class="chip">${biz}</span>
-          <span class="chip">${st}</span>
-          <span class="chip">${emp}</span>
-        </div>
+  let html = `<div class="results-header">
+    <div>
+      <div class="results-title">Your compliance checklist</div>
+      <div class="meta-chips">
+        <span class="chip">${biz}</span><span class="chip">${st}</span><span class="chip">${emp}</span>
       </div>
-      <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
     </div>
-    <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-bar" id="prog-bar"></div></div>
-      <div class="progress-label" id="prog-label">0 of ${items.length} items completed</div>
-    </div>`;
-
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-bar" id="prog-bar"></div></div>
+    <div class="progress-label" id="prog-label">0 of ${items.length} items completed</div>
+  </div>`;
   for (const [sec, secItems] of Object.entries(sections)) {
     html += `<div class="section-label">${sec}</div>`;
     secItems.forEach(item => {
-      html += `
-        <div class="check-item" id="item-${item.idx}">
-          <div class="cb" id="cb-${item.idx}" onclick="toggleCheck(${item.idx})" role="checkbox" aria-checked="false" tabindex="0"
-               onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleCheck(${item.idx})}"></div>
-          <div class="check-content">
-            <div class="check-title">${item.title} ${badge(item.priority)}</div>
-            <div class="check-desc">${item.desc}</div>
-          </div>
-        </div>`;
+      html += `<div class="check-item" id="item-${item.idx}">
+        <div class="cb" id="cb-${item.idx}" onclick="toggleCheck(${item.idx},${items.length})" role="checkbox" tabindex="0"
+             onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleCheck(${item.idx},${items.length})}"></div>
+        <div class="check-content">
+          <div class="check-title">${item.title} ${badge(item.priority)}</div>
+          <div class="check-desc">${item.desc}</div>
+        </div>
+      </div>`;
     });
   }
-
   return html;
 }
 
 async function generate() {
+  const APIKEY = document.getElementById('apiKeyInput').value.trim();
   const biz = document.getElementById('bizType').value;
   const st = document.getElementById('stateSelect').value;
   const emp = document.getElementById('empCount').value;
-
+  if (!APIKEY) {
+    document.getElementById('output').innerHTML = '<div class="error-box">Please enter your Claude API key at the top.</div>';
+    return;
+  }
   if (!biz || !st || !emp) {
     document.getElementById('output').innerHTML = '<div class="error-box">Please fill in all three fields before generating.</div>';
     return;
   }
-
   const btn = document.getElementById('generateBtn');
   btn.disabled = true;
   document.getElementById('output').innerHTML = `<div class="loading"><span class="dot-anim">Generating your checklist</span><br><span style="color:var(--ink-muted);font-size:13px;margin-top:8px;display:block">Analysing DPDP Act requirements for ${biz} in ${st}</span></div>`;
 
+  const prompt = `You are a senior Indian data privacy lawyer specialising in the Digital Personal Data Protection Act, 2023 (DPDP Act) and its Draft Rules 2025.
+
+Generate a compliance checklist for:
+- Business type: ${biz}
+- State: ${st}
+- Employee count: ${emp}
+
+Return ONLY a valid JSON array with no markdown, no code fences, no explanation. Each item must have exactly these fields:
+- "section": one of ["Data Principal Rights", "Consent Management", "Data Fiduciary Obligations", "Data Localisation & Cross-Border Transfers", "Security Safeguards", "Grievance Redressal", "State-Specific Requirements", "Significant Data Fiduciary Obligations"]
+- "title": short action item (max 12 words)
+- "desc": 1-2 sentence practical explanation referencing specific DPDP Act sections or rules where relevant
+- "priority": exactly one of "critical", "high", or "medium"
+
+Include 20-24 items total. Tailor items specifically to the business type and state. Return pure JSON array only.`;
+
   try {
-    const res = await fetch('/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ business_type: biz, state: st, employee_count: emp })
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": APIKEY,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 2000,
+        messages: [{ role: "user", content: prompt }]
+      })
     });
-
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.detail || 'Server error');
-    }
-
     const data = await res.json();
-    document.getElementById('output').innerHTML = renderChecklist(data.items, biz, st, emp);
+    if (!res.ok) throw new Error(data.error?.message || 'API error');
+    let raw = data.content[0].text.trim().replace(/```json|```/g, '').trim();
+    const items = JSON.parse(raw);
+    document.getElementById('output').innerHTML = renderChecklist(items, biz, st, emp);
     document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch (e) {
+  } catch(e) {
     document.getElementById('output').innerHTML = `<div class="error-box">Something went wrong: ${e.message}. Please try again.</div>`;
   }
-
   btn.disabled = false;
 }
 </script>
