@@ -43,7 +43,7 @@ Include 20-24 items total. Tailor the checklist specifically to the business typ
           'X-Title': 'DPDP Compliance Checker'
         },
         body: JSON.stringify({
-          model: 'google/gemma-2-9b-it:free',
+          model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
           messages: [
             {
               role: 'user',
