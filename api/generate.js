@@ -16,50 +16,95 @@ Generate a compliance checklist for:
 - State: ${state}
 - Employee count: ${employee_count}
 
-Return ONLY a valid JSON array with no markdown, no code fences, no explanation. Each item must have exactly these fields:
-- "section": one of ["Data Principal Rights", "Consent Management", "Data Fiduciary Obligations", "Data Localisation & Cross-Border Transfers", "Security Safeguards", "Grievance Redressal", "State-Specific Requirements", "Significant Data Fiduciary Obligations"]
-- "title": short action item (max 12 words)
-- "desc": 1-2 sentence practical explanation referencing specific DPDP Act sections or rules where relevant
-- "priority": exactly one of "critical", "high", or "medium"
+Return ONLY a valid JSON array with no markdown, no code fences, and no explanation.
 
-Include 20-24 items total. Tailor items specifically to the business type and state. For ${state}, include relevant state government IT policies, sector regulators, or data sharing obligations. Mark Significant Data Fiduciary obligations only if scale and business type warrants it. Return pure JSON array only — no other text.`;
+Each item must have:
+- "section"
+- "title"
+- "desc"
+- "priority"
 
-console.log(
-  "KEY PREFIX:",
-  process.enc.OPENROUTER_API_KEY?.substring(0, 15)
-);
+Include 20-24 items total. Tailor the checklist specifically to the business type and state. Return pure JSON only.`;
 
   try {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://dpdp-checker.vercel.app',
-        'X-Title': 'DPDP Compliance Checker'
-      },
-      body: JSON.stringify({
-        model: 'nvidia/llama-3.1-nemotron-super-49b-v1:free',
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
+    console.log(
+      "KEY PREFIX:",
+      process.env.OPENROUTER_API_KEY?.substring(0, 15)
+    );
 
-    const data = await response.json();
+    const response = await fetch(
+      'https://openrouter.ai/api/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY?.trim()}`,
+          'HTTP-Referer': req.headers.origin || '',
+          'X-Title': 'DPDP Compliance Checker'
+        },
+        body: JSON.stringify({
+          model: 'google/gemma-2-9b-it:free',
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ]
+        })
+      }
+    );
+
+    const rawResponse = await response.text();
+
+    console.log('STATUS:', response.status);
+    console.log('RAW RESPONSE:', rawResponse);
 
     if (!response.ok) {
-      console.log("OPENROUTER ERROR:");
-      console.log(JSON.stringify(data, null, 2));
-
       return res.status(500).json({
-        error: JSON.stringify(data)
+        error: rawResponse
       });
     }
 
-    let raw = data.choices[0].message.content.trim().replace(/```json|```/g, '').trim();
-    const items = JSON.parse(raw);
-    return res.status(200).json({ items });
+    const data = JSON.parse(rawResponse);
 
+    if (
+      !data.choices ||
+      !data.choices[0] ||
+      !data.choices[0].message
+    ) {
+      return res.status(500).json({
+        error: 'Invalid response structure from OpenRouter',
+        raw: data
+      });
+    }
+
+    const content = data.choices[0].message.content;
+
+    let cleaned = content
+      .replace(/```json/gi, '')
+      .replace(/```/g, '')
+      .trim();
+
+    try {
+      const items = JSON.parse(cleaned);
+
+      return res.status(200).json({
+        items
+      });
+    } catch (parseError) {
+      console.log('JSON PARSE ERROR:', parseError);
+      console.log('MODEL OUTPUT:', cleaned);
+
+      return res.status(500).json({
+        error: 'Model returned invalid JSON',
+        output: cleaned
+      });
+    }
   } catch (e) {
-    return res.status(500).json({ error: e.message });
+    console.error(e);
+
+    return res.status(500).json({
+      error: e.message
+    });
   }
 }
