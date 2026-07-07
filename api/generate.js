@@ -25,16 +25,16 @@ Return ONLY a valid JSON array with no markdown, no code fences, no explanation.
 Include 20-24 items total. Tailor items specifically to the business type and state. For ${state}, include relevant state government IT policies, sector regulators, or data sharing obligations. Mark Significant Data Fiduciary obligations only if scale and business type warrants it. Return pure JSON array only — no other text.`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'https://dpdp-checker.vercel.app',
+        'X-Title': 'DPDP Compliance Checker'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 2000,
+        model: 'nvidia/llama-3.1-nemotron-super-49b-v1:free',
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -42,10 +42,10 @@ Include 20-24 items total. Tailor items specifically to the business type and st
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(500).json({ error: data.error?.message || 'Claude API error' });
+      return res.status(500).json({ error: data.error?.message || 'OpenRouter API error' });
     }
 
-    let raw = data.content[0].text.trim().replace(/```json|```/g, '').trim();
+    let raw = data.choices[0].message.content.trim().replace(/```json|```/g, '').trim();
     const items = JSON.parse(raw);
     return res.status(200).json({ items });
 
